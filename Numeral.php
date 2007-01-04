@@ -1,4 +1,6 @@
 <?php
+require_once 'Text/CAPTCHA/Numeral/interfaces/NumeralInterface.php';
+
 // {{{ Class Text_CAPTCHA_Numeral
 // +----------------------------------------------------------------------+
 // | PHP version 5                                                       |
@@ -36,7 +38,7 @@
 // | WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE          |
 // | POSSIBILITY OF SUCH DAMAGE.                                          |
 // +----------------------------------------------------------------------+
-// | Author: David Coallier <davidc@agoraproduction.com                   |
+// | Author: David Coallier <davidc@agoraproduction.com>                  |
 // +----------------------------------------------------------------------+
 //
 /**
@@ -51,7 +53,7 @@
  * @package  Text_CAPTCHA_Numeral
  * @category CAPTCHA
  */
-class Text_CAPTCHA_Numeral
+class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface 
 {
     // {{{ Variables
     /**

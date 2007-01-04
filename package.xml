@@ -14,11 +14,14 @@
   </maintainer>
   </maintainers>
  <release>
-  <version>0.1.5</version>
-  <date>2006-10-17</date>
+  <version>1.0.0</version>
+  <date>2007-01-04</date>
   <license>BSD License</license>
-  <state>alpha</state>
-  <notes>- Fix according to comments, added a return in order to prevent code execution
+  <state>stable</state>
+  <notes>-Added interface support
+- Documentation page setup at: http://dev.agoraproduction.com/pear/numeral/
+- End user documentation on pear is setup.
+- Fix according to comments, added a return in order to prevent code execution
 - changed my set* to generate because they really are generators after all
 - no more recursion by generating another operation.
 - no more double casting.
@@ -45,7 +48,8 @@
   <provides type="function" name="Text_CAPTCHA_Numeral::getFirstNumber" />
   <provides type="function" name="Text_CAPTCHA_Numeral::getSecondNumber" />
   <filelist>
-   <file role="php" baseinstalldir="Text" md5sum="42c3569a096faf2342e1a806557cd9fc" name="CAPTCHA/Numeral.php"/>
+   <file role="php" baseinstalldir="Text/CAPTCHA" md5sum="c7f87b2a77ebf5dcf7d9a14234f6b33c" name="Numeral.php"/>
+   <file role="php" baseinstalldir="Text/CAPTCHA/Numeral" md5sum="199258d221deef7377c3c61bc8a2c1c3" name="interfaces/NumeralInterface.php" />
    <file role="doc" baseinstalldir="Text" md5sum="950fb59629fa0dfe9fb9c5f9429406fe" name="examples/numeral1.php"/>
    <file role="doc" baseinstalldir="Text" md5sum="ee063f9b90154257453c8a8bd9cb34c9" name="examples/liveNumeral.php"/>
   </filelist>
