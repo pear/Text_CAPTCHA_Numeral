@@ -14,11 +14,12 @@
   </maintainer>
   </maintainers>
  <release>
-  <version>1.0.0</version>
-  <date>2007-01-04</date>
+  <version>1.0.0RC2</version>
+  <date>2007-01-05</date>
   <license>BSD License</license>
-  <state>stable</state>
+  <state>beta</state>
   <notes>-Added interface support
+- Fixed tests units
 - Documentation page setup at: http://dev.agoraproduction.com/pear/numeral/
 - End user documentation on pear is setup.
 - Fix according to comments, added a return in order to prevent code execution
@@ -52,6 +53,9 @@
    <file role="php" baseinstalldir="Text/CAPTCHA/Numeral" md5sum="199258d221deef7377c3c61bc8a2c1c3" name="interfaces/NumeralInterface.php" />
    <file role="doc" baseinstalldir="Text" md5sum="950fb59629fa0dfe9fb9c5f9429406fe" name="examples/numeral1.php"/>
    <file role="doc" baseinstalldir="Text" md5sum="ee063f9b90154257453c8a8bd9cb34c9" name="examples/liveNumeral.php"/>
+   <file role="test" baseinstalldir="Text" md5sum="94a45b99218a2d20ed031148aaf5a402" name="tests/captchanumeral.answerisok.phpt" />
+   <file role="test" baseinstalldir="Text" md5sum="7f115c5e30b86d3dce5f6c9c04e265f1" name="tests/captchanumeral.operator.phpt" />
+   <file role="test" baseinstalldir="Text" md5sum="68a13eaa1677ac0fc03e20357b96cd5c" name="tests/captchanumeral.firstandsecond.phpt" />
   </filelist>
  </release>
 </package>
