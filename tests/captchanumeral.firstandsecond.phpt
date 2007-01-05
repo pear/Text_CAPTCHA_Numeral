@@ -1,8 +1,8 @@
 --TEST--
-Text_CAPTCHA_Numeral::getOperation(), 
-Text_CAPTCHA_Numeral::getFirstNumber()
+Text_CAPTCHA_Numeral::getOperation(),
+Text_CAPTCHA_Numeral::getFirstNumber(),
 Text_CAPTCHA_Numeral::getSecondNumber()
---FILE__
+--FILE--
 <?php
     error_reporting(E_ALL & ~E_STRICT);
     require_once 'Text/CAPTCHA/Numeral.php';
@@ -16,14 +16,12 @@ Text_CAPTCHA_Numeral::getSecondNumber()
     $numberOne = $num->getFirstNumber();
     $numberTwo = $num->getSecondNumber();
     
-    $textOne = 'First number';
-    $textTwo = 'Second number';
-    
-    printf ("%-20s: %d (%d)\n", $textOne, $parts[0], $numberOne);
-    printf ("%-20s: %d (%d)\n", $textTwo, $parts[2], $numberTwo);
+
+    if ( ($numberOne == $parts[0]) && ($numberTwo == $parts[2])) {
+        print "Result:    PASSED\n";
+    } else {
+        print "Result:    FAILED\n";
+    }
 ?>
 --EXPECT--
-First number      : X (X)
-Second number     : Y (Y)
-
-    
+Result:    PASSED

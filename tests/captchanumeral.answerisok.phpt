@@ -1,7 +1,7 @@
 --TEST--
 Text_CAPTCHA_Numeral::getOperation(),
 Text_CAPTCHA_Numeral::getAnswer()
---FILE__
+--FILE--
 <?php
     error_reporting(E_ALL & ~E_STRICT);
     require_once 'Text/CAPTCHA/Numeral.php';
@@ -19,7 +19,7 @@ Text_CAPTCHA_Numeral::getAnswer()
     $textOne = 'First number';
     $textTwo = 'Second number';
     
-    print "Operation & Answer: $op = $answer ?\n";
+    //print "Operation & Answer: $op = $answer ?\n";
     
     print "Result:";
     
