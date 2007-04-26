@@ -15,11 +15,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>davidc@php.net</email>
   <active>yes</active>
  </lead>
- <date>2007-02-04</date>
+ <date>2007-04-25</date>
  <time>04:28:53</time>
  <version>
-     <release>1.1.0</release>
-     <api>1.1.0</api>
+     <release>1.2.0</release>
+     <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,23 +27,27 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>BSD License</license>
  <notes>
-- Bump to package 2 
+ - Added fluent interface availability
+ - New modulus operation (msaraujo)
+ - New multiplication operation (msaraujo)
+ - New division operation 
+ - New way of handling operations with different levels of complexity.
  </notes>
  <contents>
   <dir name="/">
    <dir name="examples">
-    <file baseinstalldir="Text" md5sum="ee063f9b90154257453c8a8bd9cb34c9" name="liveNumeral.php" role="doc" />
-    <file baseinstalldir="Text" md5sum="950fb59629fa0dfe9fb9c5f9429406fe" name="numeral1.php" role="doc" />
+       <file baseinstalldir="Text" name="liveNumeral.php" role="doc" />
+       <file baseinstalldir="Text" name="numeral1.php" role="doc" />
    </dir> <!-- /examples -->
    <dir name="interfaces">
-    <file baseinstalldir="Text/CAPTCHA/Numeral" md5sum="199258d221deef7377c3c61bc8a2c1c3" name="NumeralInterface.php" role="php" />
+       <file baseinstalldir="Text/CAPTCHA/Numeral" name="NumeralInterface.php" role="php" />
    </dir> <!-- /interfaces -->
    <dir name="tests">
-    <file baseinstalldir="Text" md5sum="94a45b99218a2d20ed031148aaf5a402" name="captchanumeral.answerisok.phpt" role="test" />
-    <file baseinstalldir="Text" md5sum="68a13eaa1677ac0fc03e20357b96cd5c" name="captchanumeral.firstandsecond.phpt" role="test" />
-    <file baseinstalldir="Text" md5sum="7f115c5e30b86d3dce5f6c9c04e265f1" name="captchanumeral.operator.phpt" role="test" />
+       <file baseinstalldir="Text" name="captchanumeral.answerisok.phpt" role="test" />
+       <file baseinstalldir="Text" name="captchanumeral.firstandsecond.phpt" role="test" />
+       <file baseinstalldir="Text" name="captchanumeral.operator.phpt" role="test" />
    </dir> <!-- /tests -->
-   <file baseinstalldir="Text/CAPTCHA" md5sum="c7f87b2a77ebf5dcf7d9a14234f6b33c" name="Numeral.php" role="php" />
+   <file baseinstalldir="Text/CAPTCHA" name="Numeral.php" role="php" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
