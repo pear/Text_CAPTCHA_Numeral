@@ -186,16 +186,16 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     {
         
         switch ($complexityType) {
-                case 2:
-                     $this->operators = array('+', '-', '*');
-                     break;
-                case 4:
-                     $this->operators = array('+', '-', '*', '%', '/');
-                     break;
-                case 1:
-                default:
-                     $this->operators = array('-', '+');
-                     break;
+            case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL:
+                 $this->operators = array('+', '-', '*');
+                 break;
+            case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_UNIVERSITY:
+                 $this->operators = array('+', '-', '*', '%', '/');
+                 break;
+            case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY:
+            default:
+                 $this->operators = array('-', '+');
+                 break;
         }
         
         $this->generateFirstNumber();
@@ -434,7 +434,6 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * Do modulus
      * 
      * This method will do a modulus operation between two numbers
-     *
      * 
      * @access private
      * @see $this->firstNumber, $this->secondNumber, $this->setAnswer()
