@@ -65,7 +65,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @var    integer $minValue The minimum range value
      */
     private $minValue = '1';
-   
+  
     /**
      * Maximum range value
      *
@@ -76,7 +76,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @var    integer $maxValue The maximum value of the number range
      */
     private $maxValue = '50';
-   
+  
     /**
      * Operators
      *
@@ -87,8 +87,8 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @access private
      * @var    array $operators The operations for the captcha
      */
-    private $operators = array();
-   
+    private $operators = array('+','-');
+  
     /**
      * Operator to use
      *
@@ -100,7 +100,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @var    string $operator The operation's operator
      */
     private  $operator = '';
-   
+  
     /**
      * Mathematical Operation
      *
@@ -111,7 +111,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @var    string $operation The math operation
      */
     private $operation = '';
-   
+  
     /**
      * First number of the operation
      *
@@ -123,7 +123,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @var    integer $firstNumber The first number of the operation
      */
     private $firstNumber = '';
-   
+  
     /**
      * Second Number of the operation
      *
@@ -132,10 +132,10 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * about to generate for the captcha.
      *
      * @access private
-     * @var    integer $secondNumber The second number of the operation     
+     * @var    integer $secondNumber The second number of the operation    
      */
     private $secondNumber = '';
-   
+  
     /**
      * The operation answer
      *
@@ -154,8 +154,8 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      */
     const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY = 1;
+   
     
-     
     /**
      * A constant that indicates the complexity of mathematical operations
      *
@@ -163,8 +163,8 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      */
     const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL = 2;
+   
     
-     
     /**
      * A constant that indicates the complexity of mathematical operations
      *
@@ -184,20 +184,23 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      */
     public function __construct($complexityType = self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY)
     {
-        
+       
         switch ($complexityType) {
             case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL:
-                 $this->operators = array('+', '-', '*');
+                 $this->operators[] = '*';
+                 $this->maxValue = '70';
                  break;
             case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_UNIVERSITY:
-                 $this->operators = array('+', '-', '*', '%', '/');
+                 $this->operators[] = '*';
+                 $this->operators[] = '%';
+                 $this->operators[] = '/';
+                 $this->maxValue = '100';
                  break;
             case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY:
             default:
-                 $this->operators = array('-', '+');
                  break;
         }
-        
+       
         $this->generateFirstNumber();
         $this->generateSecondNumber();
         $this->generateOperator();
@@ -280,7 +283,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @see    $this->answer
      */
     private function setAnswer($answerValue)
-    {  
+    { 
         $this->answer = $answerValue;
         return $this;
     }
@@ -369,16 +372,16 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         $answer = $this->getFirstNumber() + $this->getSecondNumber();
         $this->setAnswer($answer);
     }
-    // }}} 
+    // }}}
     // {{{ private function doMultiplication
     /**
      * Do Multiplication
-     * 
+     *
      * This method will multiply two numbers
-     * 
+     *
      * @access private
      * @see $this->firstNumber, $this->secondNumber, $this->setAnswer
-     * 
+     *
      */
     private function doMultiplication()
     {
@@ -409,16 +412,16 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
             $secondNumber = $this->getSecondNumber();
         }
 
-        if ($secondNumber == 0) {
+        if ($secondNumber === 0) {
             ++$secondNumber;
             $this->doDivision($firstNumber, $secondNumber);
             return;
         }
-        
-        if ($firstNumber % $secondNumber != 0) {
+       
+        if ($firstNumber % $secondNumber !== 0) {
             --$firstNumber;
             --$secondNumber;
-            
+           
             $this->doDivision($firstNumber, $secondNumber);
             return;
         }
@@ -432,12 +435,12 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     // {{{ private function doModulus
     /**
      * Do modulus
-     * 
+     *
      * This method will do a modulus operation between two numbers
-     * 
+     *
      * @access private
      * @see $this->firstNumber, $this->secondNumber, $this->setAnswer()
-     * 
+     *
      */
     private function doModulus()
     {
@@ -491,7 +494,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     private function generateOperation()
     {
         $this->setOperation();
-                          
+                         
         switch ($this->operator) {
         case '+':
             $this->doAdd();
