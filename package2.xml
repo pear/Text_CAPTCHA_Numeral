@@ -15,11 +15,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>davidc@php.net</email>
   <active>yes</active>
  </lead>
- <date>2007-04-25</date>
- <time>04:28:53</time>
+ <date>2007-04-29</date>
+ <time>15:50:00</time>
  <version>
-     <release>1.2.0</release>
-     <api>1.2.0</api>
+     <release>1.3.0</release>
+     <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,10 +27,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>BSD License</license>
  <notes>
- - Added fluent interface availability
- - New modulus operation (msaraujo)
- - New multiplication operation (msaraujo)
- - New division operation 
+ - Added complexity in numbers and possibility to use larger numbers.
  - New way of handling operations with different levels of complexity.
  </notes>
  <contents>
