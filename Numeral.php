@@ -1,5 +1,6 @@
 <?php
 require_once 'Text/CAPTCHA/Numeral/interfaces/NumeralInterface.php';
+
 // {{{ Class Text_CAPTCHA_Numeral
 // +----------------------------------------------------------------------+
 // | PHP version 5                                                        |
@@ -194,6 +195,8 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
                  $this->operators[] = '*';
                  $this->operators[] = '%';
                  $this->operators[] = '/';
+                 $this->operators[] = '^';
+                 $this->operators[] = '!';
                  $this->maxValue = '100';
                  break;
             case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY:
@@ -332,14 +335,21 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @access private
      * @see    $this->operation
      */
-    private function setOperation()
+    private function setOperation($type = null)
     {
-        $this->operation = $this->getFirstNumber() . ' ' .
-                           $this->operator . ' ' .
-                           $this->getSecondNumber();
-        return $this;
+    	if (strcmp(strtoupper($type),"F") === 0) {
+    			$this->operation = $this->getFirstNumber() . ' ' . $this->operator;
+    			
+    	}
+        else {
+    			$this->operation = $this->getFirstNumber() . ' ' .
+                $this->operator . ' ' .
+                $this->getSecondNumber();
+    	}
+    	return $this;
     }
     // }}}
+        
     // {{{ private function generateNumber
     /**
      * Generate a number
@@ -412,13 +422,18 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
             $secondNumber = $this->getSecondNumber();
         }
 
-        if ($secondNumber === 0) {
+        if ($secondNumber == 0) {
             ++$secondNumber;
             $this->doDivision($firstNumber, $secondNumber);
             return;
         }
        
-        if ($firstNumber % $secondNumber !== 0) {
+        if ($firstNumber == 0) {
+        	$this->doDivision(++$firstNumber,$secondNumber);
+        	return;
+        }
+        
+        if ($firstNumber % $secondNumber != 0) {
             --$firstNumber;
             --$secondNumber;
            
@@ -479,6 +494,49 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         $this->setAnswer($answer);
     }
     // }}}
+    
+    // {{{
+    /**
+     * Does an exponentiation on the values
+     *
+     * This function executes an exponentiation
+     *
+     * @access private
+     * @see    $this->setOperation, $this->getFirstNumber, $this->getSecondNumber, $this->setAnswer()
+     */
+    private function doExponentiation() 
+    {        
+    	$this->setOperation()
+             ->setAnswer(pow($this->getFirstNumber(),$this->getSecondNumber()));   	
+    }
+    // }}}
+    
+    // {{{
+    /**
+     * Enter description here...
+     *
+     */
+    private function doFactorial() 
+    {
+    	$this->setOperation('F')
+             ->setAnswer(self::calculateFactorial($this->getFirstNumber()));
+    }
+    
+    // }}}
+    
+    // {{{
+    /**
+     * Enter description here...
+     *
+     * @param  integer $n
+     * @return integer
+     */
+    private static function calculateFactorial($n) 
+    {
+    	return $n <= 1 ? 1 : $n * self::calculateFactorial($n - 1);
+    }
+    // }}}
+    
     // {{{ private function generateOperation
     /**
      * Generate the operation
@@ -511,6 +569,16 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         case '/':
             $this->doDivision();
             break;
+        case '^':
+        	$this->minValue = 10;
+        	$this->doExponentiation();
+        	break;
+        case '!':
+        	$this->minValue = 1;
+        	$this->maxValue = 10;
+        	$this->generateFirstNumber();
+        	$this->doFactorial();
+        	break;
         default:
             $this->doAdd();
             break;
