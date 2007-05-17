@@ -513,8 +513,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     
     // {{{
     /**
-     * Enter description here...
-     *
+     * Call static factorial method
+     * 
+     * @access private
      */
     private function doFactorial() 
     {
@@ -526,8 +527,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     
     // {{{
     /**
-     * Enter description here...
+     * Calculate factorial given an integer number
      *
+     * @access private
      * @param  integer $n
      * @return integer
      */
