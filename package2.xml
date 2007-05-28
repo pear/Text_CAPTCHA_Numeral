@@ -15,6 +15,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>davidc@php.net</email>
   <active>yes</active>
  </lead>
+ <developer>
+  <name>Marcelo Araujo</name>
+  <user>msaraujo</user>
+  <email>msaraujo@php.net</email>
+  <active>yes</active>
+ </developer>
  <date>2007-04-29</date>
  <time>15:50:00</time>
  <version>
