@@ -49,9 +49,12 @@ require_once 'Text/CAPTCHA/Numeral/interfaces/NumeralInterface.php';
  * Example:
  *  Give me the answer to "54 + 2" to prove that you are human.
  *
- * @author   David Coallier <davidc@agoraproduction.com>
- * @package  Text_CAPTCHA_Numeral
- * @category CAPTCHA
+ * @author    David Coallier <davidc@agoraproduction.com>
+ * @author    Marcelo Araujo <msaraujo@php.net>
+ * @package   Text_CAPTCHA_Numeral
+ * @copyright Agora Production 2002-2007 (http://agoraproduction.com)
+ * @license   BSD
+ * @category  CAPTCHA
  */
 class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
 {
@@ -337,19 +340,16 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      */
     private function setOperation($type = null)
     {
-    	if (strcmp(strtoupper($type),"F") === 0) {
-    			$this->operation = $this->getFirstNumber() . ' ' . $this->operator;
-    			
-    	}
-        else {
-    			$this->operation = $this->getFirstNumber() . ' ' .
-                $this->operator . ' ' .
-                $this->getSecondNumber();
-    	}
-    	return $this;
+        if (!stristr($type, 'F')) {
+            $this->operation = $this->getFirstNumber() . ' ' . $this->operator;
+        } else {
+            $this->operation = $this->getFirstNumber() . ' ' .
+            $this->operator . ' ' .
+            $this->getSecondNumber();
+        }
+        return $this;
     }
     // }}}
-        
     // {{{ private function generateNumber
     /**
      * Generate a number
@@ -494,8 +494,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         $this->setAnswer($answer);
     }
     // }}}
-    
-    // {{{
+    // {{{ private function doExponentiation
     /**
      * Does an exponentiation on the values
      *
@@ -510,8 +509,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
              ->setAnswer(pow($this->getFirstNumber(),$this->getSecondNumber()));   	
     }
     // }}}
-    
-    // {{{
+    // {{{ private function doFactorial
     /**
      * Call static factorial method
      * 
@@ -520,25 +518,22 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     private function doFactorial() 
     {
     	$this->setOperation('F')
-             ->setAnswer(self::calculateFactorial($this->getFirstNumber()));
-    }
-    
-    // }}}
-    
-    // {{{
+             ->setAnswer($this->calculateFactorial($this->getFirstNumber()));
+    }   
+    // }}}    
+    // {{{ private function calculateFactorial
     /**
      * Calculate factorial given an integer number
      *
      * @access private
-     * @param  integer $n
-     * @return integer
+     * @param  integer $n  The factorial to calculate
+     * @return integer     The calculated value
      */
-    private static function calculateFactorial($n) 
+    private function calculateFactorial($n) 
     {
-    	return $n <= 1 ? 1 : $n * self::calculateFactorial($n - 1);
+    	return $n <= 1 ? 1 : $n * $this->calculateFactorial($n - 1);
     }
     // }}}
-    
     // {{{ private function generateOperation
     /**
      * Generate the operation
@@ -554,36 +549,36 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     private function generateOperation()
     {
         $this->setOperation();
-                         
+
         switch ($this->operator) {
-        case '+':
-            $this->doAdd();
-            break;
-        case '-':
-            $this->doSubstract();
-            break;
-        case '*':
-            $this->doMultiplication();
-            break;
-        case '%':
-            $this->doModulus();
-            break;
-        case '/':
-            $this->doDivision();
-            break;
-        case '^':
-        	$this->minValue = 10;
-        	$this->doExponentiation();
-        	break;
-        case '!':
-        	$this->minValue = 1;
-        	$this->maxValue = 10;
-        	$this->generateFirstNumber();
-        	$this->doFactorial();
-        	break;
-        default:
-            $this->doAdd();
-            break;
+            case '+':
+                $this->doAdd();
+                break;
+            case '-':
+                $this->doSubstract();
+                break;
+            case '*':
+                $this->doMultiplication();
+                break;
+            case '%':
+                $this->doModulus();
+                break;
+            case '/':
+                $this->doDivision();
+                break;
+            case '^':
+                $this->minValue = 10;
+                $this->doExponentiation();
+                break;
+            case '!':
+                $this->minValue = 1;
+                $this->maxValue = 10;
+                $this->generateFirstNumber();
+                $this->doFactorial();
+                break;
+            default:
+                $this->doAdd();
+                break;
         }
     }
     // }}}
