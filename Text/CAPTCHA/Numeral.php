@@ -455,11 +455,20 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      * @access private
      * @see $this->firstNumber, $this->secondNumber, $this->setAnswer()
-     *
+     * @return void
      */
     private function doModulus()
     {
-       $this->setAnswer($this->getFirstNumber() % $this->getSecondNumber());
+        $first  = $this->getFirstNumber();
+        $second = $this->getSecondNumber();
+
+        if ($first == $second) {
+            $this->generateSecondNumber();
+            $this->doModulus();
+            return;
+        }
+
+        $this->setAnswer($this->getFirstNumber() % $this->getSecondNumber());
     }
     // }}}
     // {{{ private function doSubstract
@@ -644,4 +653,3 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     // }}}
 }
 // }}}
-?>
