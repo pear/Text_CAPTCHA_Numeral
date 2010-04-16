@@ -186,13 +186,19 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      * @param constant $complexityType
      */
-    public function __construct($complexityType = self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY)
+    public function __construct($complexityType = self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY, $minValue = 1, $maxValue = 50)
     {
        
+        $this->minValue = (int)$minValue;
+        $this->maxValue = (int)$maxValue;
+
         switch ($complexityType) {
             case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL:
                  $this->operators[] = '*';
-                 $this->maxValue = '70';
+                 if ($this->maxValue < 70) {
+                    $this->maxValue = '70';
+                 }
+
                  break;
             case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_UNIVERSITY:
                  $this->operators[] = '*';
@@ -200,13 +206,16 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
                  $this->operators[] = '/';
                  $this->operators[] = '^';
                  $this->operators[] = '!';
-                 $this->maxValue = '100';
+                 if ($this->maxValue < 100) {
+                    $this->maxValue = '100';
+                 }
+
                  break;
             case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY:
             default:
                  break;
         }
-       
+
         $this->generateFirstNumber();
         $this->generateSecondNumber();
         $this->generateOperator();
@@ -651,5 +660,8 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         return $this->secondNumber;
     }
     // }}}
+    /**
+     * Set the max value 
+     */
 }
 // }}}

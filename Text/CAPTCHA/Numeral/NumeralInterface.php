@@ -99,4 +99,3 @@ interface Text_CAPTCHA_Numeral_Interface
     // }}}
 }
 // }}}
-?>
