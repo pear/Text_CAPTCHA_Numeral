@@ -15,11 +15,11 @@ $parts = split(" ", $op);
 $numberOne = $num->getFirstNumber();
 $numberTwo = $num->getSecondNumber();
 
-if ($numberOne != $parts[0]) {
+if (isset($parts[0]) && $numberOne != $parts[0]) {
     print $numberOne . " does not equal " . $parts[0] . "\n";
 }
 
-if ($numberTwo != $parts[2]) {
+if (isset($parts[2] && $numberTwo != $parts[2]) {
     print $numberTwo . " does not equal " . $parts[2] . "\n";
 }
 
