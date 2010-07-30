@@ -11,7 +11,7 @@ Text_CAPTCHA_Numeral::getAnswer()
     $op     = $num->getOperation();
     $answer = $num->getAnswer();
     
-    $parts = split(" ", $op);
+    $parts = explode(' ', $op);
 
     $numberOne = $num->getFirstNumber();
     $numberTwo = $num->getSecondNumber();

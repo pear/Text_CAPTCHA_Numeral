@@ -10,7 +10,7 @@ $num = new Text_CAPTCHA_Numeral();
 
 $op = $num->getOperation();
 
-$parts = split(" ", $op);
+$parts = explode(' ', $op);
 
 $numberOne = $num->getFirstNumber();
 $numberTwo = $num->getSecondNumber();
