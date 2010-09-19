@@ -1,5 +1,5 @@
 <?php
-require_once 'Text/CAPTCHA/Numeral/interfaces/NumeralInterface.php';
+require_once 'Text/CAPTCHA/Numeral/NumeralInterface.php';
 
 // {{{ Class Text_CAPTCHA_Numeral
 // +----------------------------------------------------------------------+
