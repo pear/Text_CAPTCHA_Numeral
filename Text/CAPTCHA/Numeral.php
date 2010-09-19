@@ -1,46 +1,20 @@
 <?php
+/**
+ * Numeral Captcha
+ *
+ * PHP version 5
+ *
+ * @category  Text
+ * @package   Text_CAPTCHA_Numeral
+ * @author    David Coallier <davidc@agoraproduction.com>
+ * @author    Marcelo Araujo <msaraujo@php.net>
+ * @copyright 2002-2007 Agora Production (http://agoraproduction.com)
+ * @license   http://www.opensource.org/licenses/bsd-license.php BSD
+ * @link      http://pear.php.net/package/Text_CAPTCHA_Numeral
+ */
 require_once 'Text/CAPTCHA/Numeral/NumeralInterface.php';
 
 // {{{ Class Text_CAPTCHA_Numeral
-// +----------------------------------------------------------------------+
-// | PHP version 5                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1998-2007 David Coallier                               |
-// | All rights reserved.                                                 |
-// +----------------------------------------------------------------------+
-// |                                                                      |
-// | Redistribution and use in source and binary forms, with or without   |
-// | modification, are permitted provided that the following conditions   |
-// | are met:                                                             |
-// |                                                                      |
-// | Redistributions of source code must retain the above copyright       |
-// | notice, this list of conditions and the following disclaimer.        |
-// |                                                                      |
-// | Redistributions in binary form must reproduce the above copyright    |
-// | notice, this list of conditions and the following disclaimer in the  |
-// | documentation and/or other materials provided with the distribution. |
-// |                                                                      |
-// | Neither the name of David Coallier nor the names of his contributors |
-// | may be used to endorse                                               |
-// | or promote products derived from this software without specific prior|
-// | written permission.                                                  |
-// |                                                                      |
-// | THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS  |
-// | "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT    |
-// | LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS    |
-// | FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE      |
-// | REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,          |
-// | INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, |
-// | BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS|
-// |  OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED  |
-// | AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT          |
-// | LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY|
-// | WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE          |
-// | POSSIBILITY OF SUCH DAMAGE.                                          |
-// +----------------------------------------------------------------------+
-// | Author: David Coallier <davidc@agoraproduction.com>                  |
-// +----------------------------------------------------------------------+
-//
 /**
  * Class used for numeral captchas
  *
@@ -49,12 +23,13 @@ require_once 'Text/CAPTCHA/Numeral/NumeralInterface.php';
  * Example:
  *  Give me the answer to "54 + 2" to prove that you are human.
  *
+ * @category  Text
+ * @package   Text_CAPTCHA_Numeral
  * @author    David Coallier <davidc@agoraproduction.com>
  * @author    Marcelo Araujo <msaraujo@php.net>
- * @package   Text_CAPTCHA_Numeral
- * @copyright Agora Production 2002-2007 (http://agoraproduction.com)
- * @license   BSD
- * @category  CAPTCHA
+ * @copyright 2002-2007 Agora Production (http://agoraproduction.com)
+ * @license   http://www.opensource.org/licenses/bsd-license.php BSD
+ * @link      http://pear.php.net/package/Text_CAPTCHA_Numeral
  */
 class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
 {
@@ -203,36 +178,41 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     /**
      * Constructor with different levels of mathematical operations sets
      *
-     * @param constant $complexityType
+     * @param constant $complexityType How complex the captcha equation shall be.
+     *                                 See the COMPLEXITY constants.
+     * @param integer  $minValue       Minimal value of a number
+     * @param integer  $maxValue       Maximal value of a number
      */
-    public function __construct($complexityType = self::COMPLEXITY_ELEMENTARY, $minValue = 1, $maxValue = 50)
-    {
+    public function __construct(
+        $complexityType = self::COMPLEXITY_ELEMENTARY,
+        $minValue = 1, $maxValue = 50
+    ) {
        
         $this->minValue = (int)$minValue;
         $this->maxValue = (int)$maxValue;
 
         switch ($complexityType) {
-            case self::COMPLEXITY_HIGH_SCHOOL:
-                 $this->operators[] = '*';
-                 if ($this->maxValue < 70) {
-                    $this->maxValue = '70';
-                 }
+        case self::COMPLEXITY_HIGH_SCHOOL:
+            $this->operators[] = '*';
+            if ($this->maxValue < 70) {
+                $this->maxValue = '70';
+            }
 
-                 break;
-            case self::COMPLEXITY_UNIVERSITY:
-                 $this->operators[] = '*';
-                 $this->operators[] = '%';
-                 $this->operators[] = '/';
-                 $this->operators[] = '^';
-                 $this->operators[] = '!';
-                 if ($this->maxValue < 100) {
-                    $this->maxValue = '100';
-                 }
-
-                 break;
-            case self::COMPLEXITY_ELEMENTARY:
-            default:
-                 break;
+            break;
+        case self::COMPLEXITY_UNIVERSITY:
+            $this->operators[] = '*';
+            $this->operators[] = '%';
+            $this->operators[] = '/';
+            $this->operators[] = '^';
+            $this->operators[] = '!';
+            if ($this->maxValue < 100) {
+                $this->maxValue = '100';
+            }
+            
+            break;
+        case self::COMPLEXITY_ELEMENTARY:
+        default:
+            break;
         }
 
         $this->generateFirstNumber();
@@ -249,8 +229,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * to set the range minimum value so the operations
      * can be bigger, smaller, etc.
      *
-     * @access private
-     * @param  integer $minValue The minimum value
+     * @param integer $minValue The minimum value
+     *
+     * @return void
      */
     private function setRangeMinimum($minValue = '1')
     {
@@ -265,8 +246,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * of the operation by calling the generateNumber
      * function that generates a random number.
      *
-     * @access private
-     * @see    $this->firstNumber, $this->generateNumber
+     * @return void
+     *
+     * @see $this->firstNumber, $this->generateNumber
      */
     private function generateFirstNumber()
     {
@@ -280,8 +262,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * This function sets the second number of the
      * operation by calling generateNumber()
      *
-     * @access private
-     * @see    $this->secondNumber, $this->generateNumber()
+     * @return void
+     *
+     * @see $this->secondNumber, $this->generateNumber()
      */
     private function generateSecondNumber()
     {
@@ -296,8 +279,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * getting the array value of an array_rand() of
      * the $this->operators() array.
      *
-     * @access private
-     * @see    $this->operators, $this->operator
+     * @return void
+     *
+     * @see $this->operators, $this->operator
      */
     private function generateOperator()
     {
@@ -312,9 +296,11 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * basically the result of the function we have done
      * and it will set $this->answer with it.
      *
-     * @access private
-     * @param  integer $answerValue The answer value
-     * @see    $this->answer
+     * @param integer $answerValue The answer value
+     *
+     * @return void
+     *
+     * @see $this->answer
      */
     private function setAnswer($answerValue)
     { 
@@ -329,9 +315,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * This function sets the first number
      * to the value passed to the function
      *
-     * @access private
-     * @param  integer $value The first number value.
-     * @return object $this  The self object
+     * @param integer $value The first number value.
+     *
+     * @return Text_CAPTCHA_Numeral The self object
      */
     private function setFirstNumber($value)
     {
@@ -346,9 +332,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * This function sets the second number
      * with the value passed to it.
      *
-     * @access private
-     * @param  integer $value The second number new value.
-     * @return object  $this  The self object
+     * @param integer $value The second number new value.
+     *
+     * @return Text_CAPTCHA_Numeral The self object
      */
     private function setSecondNumber($value)
     {
@@ -363,8 +349,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * This variable sets the operation variable
      * by taking the firstNumber, secondNumber and operator
      *
-     * @access private
-     * @see    $this->operation
+     * @return void
+     *
+     * @see $this->operation
      */
     private function setOperation($type = null)
     {
@@ -386,7 +373,6 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * the $this->maxValue and $this->minValue and get
      * the random number from them using mt_rand()
      *
-     * @access private
      * @return integer Random value between minValue and maxValue
      */
     private function generateNumber()
@@ -402,8 +388,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * secondNumber value and then call setAnswer to
      * set the answer value.
      *
-     * @access private
-     * @see    $this->firstNumber, $this->secondNumber, $this->setAnswer()
+     * @return void
+     *
+     * @see $this->firstNumber, $this->secondNumber, $this->setAnswer()
      */
     private function doAdd()
     {
@@ -417,9 +404,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      * This method will multiply two numbers
      *
-     * @access private
-     * @see $this->firstNumber, $this->secondNumber, $this->setAnswer
+     * @return void
      *
+     * @see $this->firstNumber, $this->secondNumber, $this->setAnswer
      */
     private function doMultiplication()
     {
@@ -433,12 +420,12 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * This function executes a division based on the two
      * numbers.
      *
-     * @param integer $firstNumber The first number of the operation.
-     *                             This is by default set to null.
-     *
+     * @param integer $firstNumber  The first number of the operation.
+     *                              This is by default set to null.
      * @param integer $secondNumber The second number of the operation
      *                              This is by default set to null.
      *
+     * @return void
      */
     private function doDivision($firstNumber = null, $secondNumber = null)
     {
@@ -457,8 +444,8 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         }
        
         if ($firstNumber == 0) {
-        	$this->doDivision(++$firstNumber,$secondNumber);
-        	return;
+            $this->doDivision(++$firstNumber, $secondNumber);
+            return;
         }
         
         if ($firstNumber % $secondNumber != 0) {
@@ -470,9 +457,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         }
 
         $this->setFirstNumber($firstNumber)
-             ->setSecondNumber($secondNumber)
-             ->setOperation()
-             ->setAnswer($this->getFirstNumber() / $this->getSecondNumber());
+            ->setSecondNumber($secondNumber)
+            ->setOperation()
+            ->setAnswer($this->getFirstNumber() / $this->getSecondNumber());
     }
     // }}}
     // {{{ private function doModulus
@@ -481,9 +468,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      * This method will do a modulus operation between two numbers
      *
-     * @access private
-     * @see $this->firstNumber, $this->secondNumber, $this->setAnswer()
      * @return void
+     *
+     * @see $this->firstNumber, $this->secondNumber, $this->setAnswer()
      */
     private function doModulus()
     {
@@ -510,8 +497,9 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * If the firstnumber value is smaller than the secondnumber value
      * then we regenerate the first number and regenerate the operation.
      *
-     * @access private
-     * @see    $this->firstNumber, $this->secondNumber, $this->setAnswer()
+     * @return void
+     *
+     * @see $this->firstNumber, $this->secondNumber, $this->setAnswer()
      */
     private function doSubstract()
     {
@@ -523,8 +511,8 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
          */
         if ($first < $second) {
             $this->setFirstNumber($second)
-                 ->setSecondNumber($first)
-                 ->setOperation();
+                ->setSecondNumber($first)
+                ->setOperation();
         }
 
         $answer = $this->getFirstNumber() - $this->getSecondNumber();
@@ -537,38 +525,40 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      * This function executes an exponentiation
      *
-     * @access private
-     * @see    $this->setOperation, $this->getFirstNumber, $this->getSecondNumber, $this->setAnswer()
+     * @return void
+     *
+     * @see $this->setOperation, $this->getFirstNumber
+     *      $this->getSecondNumber, $this->setAnswer()
      */
     private function doExponentiation() 
     {        
-    	$this->setOperation()
-             ->setAnswer(pow($this->getFirstNumber(),$this->getSecondNumber()));   	
+        $this->setOperation()
+            ->setAnswer(pow($this->getFirstNumber(), $this->getSecondNumber()));
     }
     // }}}
     // {{{ private function doFactorial
     /**
      * Call static factorial method
-     * 
-     * @access private
+     *
+     * @return void
      */
     private function doFactorial() 
     {
-    	$this->setOperation('F')
-             ->setAnswer($this->calculateFactorial($this->getFirstNumber()));
+        $this->setOperation('F')
+            ->setAnswer($this->calculateFactorial($this->getFirstNumber()));
     }   
     // }}}    
     // {{{ private function calculateFactorial
     /**
      * Calculate factorial given an integer number
      *
-     * @access private
-     * @param  integer $n  The factorial to calculate
-     * @return integer     The calculated value
+     * @param integer $n The factorial to calculate
+     *
+     * @return integer The calculated value
      */
     private function calculateFactorial($n) 
     {
-    	return $n <= 1 ? 1 : $n * $this->calculateFactorial($n - 1);
+        return $n <= 1 ? 1 : $n * $this->calculateFactorial($n - 1);
     }
     // }}}
     // {{{ private function generateOperation
@@ -580,42 +570,43 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * to display the operation, and call the function necessary
      * depending on which operation is set by this->operator.
      *
-     * @access private
-     * @see    $this->setOperation(), $this->operator
+     * @return void
+     *
+     * @see $this->setOperation(), $this->operator
      */
     private function generateOperation()
     {
         $this->setOperation();
 
         switch ($this->operator) {
-            case '+':
-                $this->doAdd();
-                break;
-            case '-':
-                $this->doSubstract();
-                break;
-            case '*':
-                $this->doMultiplication();
-                break;
-            case '%':
-                $this->doModulus();
-                break;
-            case '/':
-                $this->doDivision();
-                break;
-            case '^':
-                $this->minValue = 10;
-                $this->doExponentiation();
-                break;
-            case '!':
-                $this->minValue = 1;
-                $this->maxValue = 10;
-                $this->generateFirstNumber();
-                $this->doFactorial();
-                break;
-            default:
-                $this->doAdd();
-                break;
+        case '+':
+            $this->doAdd();
+            break;
+        case '-':
+            $this->doSubstract();
+            break;
+        case '*':
+            $this->doMultiplication();
+            break;
+        case '%':
+            $this->doModulus();
+            break;
+        case '/':
+            $this->doDivision();
+            break;
+        case '^':
+            $this->minValue = 10;
+            $this->doExponentiation();
+            break;
+        case '!':
+            $this->minValue = 1;
+            $this->maxValue = 10;
+            $this->generateFirstNumber();
+            $this->doFactorial();
+            break;
+        default:
+            $this->doAdd();
+            break;
         }
     }
     // }}}
@@ -626,7 +617,6 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * This function will get the operation
      * string from $this->operation
      *
-     * @access public
      * @return string The operation String
      */
     public function getOperation()
@@ -642,7 +632,6 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * value from this->answer and return it so
      * we can then display it to the user.
      *
-     * @access public
      * @return string The operation answer value.
      */
     public function getAnswer()
@@ -657,7 +646,6 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * This function will get the first number
      * value from $this->firstNumber
      *
-     * @access public
      * @return integer $this->firstNumber The firstNumber
      */
     public function getFirstNumber()
@@ -671,7 +659,6 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      * This function will return the second number value
      *
-     * @access public
      * @return integer $this->secondNumber The second number
      */
     public function getSecondNumber()
@@ -679,8 +666,5 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         return $this->secondNumber;
     }
     // }}}
-    /**
-     * Set the max value 
-     */
 }
 // }}}
