@@ -39,7 +39,10 @@
  <notes>
 - Added complexity in numbers and possibility to use larger numbers.
 - New way of handling operations with different levels of complexity.
+- Fix bug #16712: sometimes the class will fail with modulus operator [davidc]
+- Fix bug #14871: E_NOTICE breaks test [davidc]
 - Fix bug #17428: Shorten constant names [cweiske]
+- Implement request #13862:setting maxValue [davidc]
  </notes>
 
  <contents>
@@ -83,7 +86,10 @@
    <notes>
 - Added complexity in numbers and possibility to use larger numbers.
 - New way of handling operations with different levels of complexity.
+- Fix bug #16712: sometimes the class will fail with modulus operator [davidc]
+- Fix bug #14871: E_NOTICE breaks test [davidc]
 - Fix bug #17428: Shorten constant names [cweiske]
+- Implement request #13862:setting maxValue [davidc]
    </notes>
   </release>
 
