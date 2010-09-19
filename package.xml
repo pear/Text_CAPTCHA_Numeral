@@ -30,6 +30,7 @@
  <notes>
 - Added complexity in numbers and possibility to use larger numbers.
 - New way of handling operations with different levels of complexity.
+- Fix bug #17428: Shorten constant names [cweiske]
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -68,6 +69,7 @@
    <notes>
 - Added complexity in numbers and possibility to use larger numbers.
 - New way of handling operations with different levels of complexity.
+- Fix bug #17428: Shorten constant names [cweiske]
    </notes>
   </release>
  </changelog>

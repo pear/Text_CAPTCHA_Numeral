@@ -157,8 +157,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @access public
      *
      */
-    const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY = 1;
-   
+    const COMPLEXITY_ELEMENTARY = 1;
     
     /**
      * A constant that indicates the complexity of mathematical operations
@@ -166,14 +165,34 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      * @access public
      *
      */
-    const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL = 2;
-   
-    
+    const COMPLEXITY_HIGH_SCHOOL = 2;
+       
     /**
      * A constant that indicates the complexity of mathematical operations
      *
      * @access public
      *
+     */
+    const COMPLEXITY_UNIVERSITY = 4;
+ 
+    /**
+     * Kept for backwards compatibility only; use the short constant.
+     *
+     * @deprecated
+     */
+    const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY = 1;
+    
+    /**
+     * Kept for backwards compatibility only; use the short constant.
+     *
+     * @deprecated
+     */
+    const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL = 2;
+   
+    /**
+     * Kept for backwards compatibility only; use the short constant.
+     *
+     * @deprecated
      */
     const TEXT_CAPTCHA_NUMERAL_COMPLEXITY_UNIVERSITY = 4;
  
@@ -186,21 +205,21 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      *
      * @param constant $complexityType
      */
-    public function __construct($complexityType = self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY, $minValue = 1, $maxValue = 50)
+    public function __construct($complexityType = self::COMPLEXITY_ELEMENTARY, $minValue = 1, $maxValue = 50)
     {
        
         $this->minValue = (int)$minValue;
         $this->maxValue = (int)$maxValue;
 
         switch ($complexityType) {
-            case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL:
+            case self::COMPLEXITY_HIGH_SCHOOL:
                  $this->operators[] = '*';
                  if ($this->maxValue < 70) {
                     $this->maxValue = '70';
                  }
 
                  break;
-            case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_UNIVERSITY:
+            case self::COMPLEXITY_UNIVERSITY:
                  $this->operators[] = '*';
                  $this->operators[] = '%';
                  $this->operators[] = '/';
@@ -211,7 +230,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
                  }
 
                  break;
-            case self::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY:
+            case self::COMPLEXITY_ELEMENTARY:
             default:
                  break;
         }
