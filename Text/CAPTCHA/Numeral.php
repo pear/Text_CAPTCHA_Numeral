@@ -344,10 +344,12 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
     // }}}
     // {{{ private function setOperation
     /**
-     * Set operation
+     * Set "operation" string the user needs to solve.
      *
      * This variable sets the operation variable
      * by taking the firstNumber, secondNumber and operator
+     *
+     * @param string $type May be null, or "F" to indicate a factorial operation
      *
      * @return void
      *
@@ -355,7 +357,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
      */
     private function setOperation($type = null)
     {
-        if (!stristr($type, 'F')) {
+        if ($type == 'F') {
             $this->operation = $this->getFirstNumber() . ' ' . $this->operator;
         } else {
             $this->operation = $this->getFirstNumber() . ' ' .
