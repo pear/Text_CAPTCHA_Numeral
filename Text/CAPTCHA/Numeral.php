@@ -187,38 +187,7 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         $complexityType = self::COMPLEXITY_ELEMENTARY,
         $minValue = 1, $maxValue = 50
     ) {
-       
-        $this->minValue = (int)$minValue;
-        $this->maxValue = (int)$maxValue;
-
-        switch ($complexityType) {
-        case self::COMPLEXITY_HIGH_SCHOOL:
-            $this->operators[] = '*';
-            if ($this->maxValue < 70) {
-                $this->maxValue = '70';
-            }
-
-            break;
-        case self::COMPLEXITY_UNIVERSITY:
-            $this->operators[] = '*';
-            $this->operators[] = '%';
-            $this->operators[] = '/';
-            $this->operators[] = '^';
-            $this->operators[] = '!';
-            if ($this->maxValue < 100) {
-                $this->maxValue = '100';
-            }
-            
-            break;
-        case self::COMPLEXITY_ELEMENTARY:
-        default:
-            break;
-        }
-
-        $this->generateFirstNumber();
-        $this->generateSecondNumber();
-        $this->generateOperator();
-        $this->generateOperation();
+         $this->prepare($complexityType, $minValue, $maxValue);
     }
     // }}}
     // {{{ private function setRangeMinimum
@@ -668,5 +637,55 @@ class Text_CAPTCHA_Numeral implements Text_CAPTCHA_Numeral_Interface
         return $this->secondNumber;
     }
     // }}}
+    // {{{ public function prepare
+    /**
+     * prepare class with the values
+     *
+     * This function prepare configure the values to 
+     * generate the captcha 
+     *
+     * @param constant $complexityType How complex the captcha equation shall be.
+     *                                 See the COMPLEXITY constants.
+     * @param integer  $minValue       Minimal value of a number
+     * @param integer  $maxValue       Maximal value of a number
+     *
+     * @return void
+     */
+    public function prepare($complexityType, $minValue, $maxValue)
+    {
+        $this->minValue = (int)$minValue;
+        $this->maxValue = (int)$maxValue;
+
+        switch ($complexityType) {
+        case self::COMPLEXITY_HIGH_SCHOOL:
+            $this->operators[] = '*';
+            if ($this->maxValue < 70) {
+                $this->maxValue = '70';
+            }
+
+            break;
+        case self::COMPLEXITY_UNIVERSITY:
+            $this->operators[] = '*';
+            $this->operators[] = '%';
+            $this->operators[] = '/';
+            $this->operators[] = '^';
+            $this->operators[] = '!';
+            if ($this->maxValue < 100) {
+                $this->maxValue = '100';
+            }
+            
+            break;
+        case self::COMPLEXITY_ELEMENTARY:
+        default:
+            break;
+        }
+
+        $this->generateFirstNumber();
+        $this->generateSecondNumber();
+        $this->generateOperator();
+        $this->generateOperation();
+    }
+    // }}}    
+    
 }
 // }}}
