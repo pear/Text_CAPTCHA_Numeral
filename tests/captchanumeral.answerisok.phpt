@@ -3,7 +3,6 @@ Text_CAPTCHA_Numeral::getOperation(),
 Text_CAPTCHA_Numeral::getAnswer()
 --FILE--
 <?php
-    error_reporting(E_ALL & ~E_STRICT);
     require_once 'Text/CAPTCHA/Numeral.php';
 
     $num = new Text_CAPTCHA_Numeral;
