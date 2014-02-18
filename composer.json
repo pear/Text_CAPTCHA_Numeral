@@ -13,7 +13,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Text_CAPTCHA_Numeral": "./"
+            "Text": "./"
         }
     },
     "description": "More info available on: http://pear.php.net/package/Text_CAPTCHA_Numeral",
