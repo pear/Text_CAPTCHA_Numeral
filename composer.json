@@ -1,0 +1,36 @@
+{
+    "authors": [
+        {
+            "email": "davidc@php.net",
+            "name": "David Coallier",
+            "role": "Lead"
+        },
+        {
+            "email": "msaraujo@php.net",
+            "name": "Marcelo Araujo",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Text": "./"
+        }
+    },
+    "description": "More info available on: http://pear.php.net/package/Text_CAPTCHA_Numeral",
+    "include-path": [
+        "./"
+    ],
+    "license": "BSD License",
+    "name": "pear/text_captcha_numeral",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Text_CAPTCHA_Numeral",
+        "source": "https://github.com/pear/Text_CAPTCHA_Numeral"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
